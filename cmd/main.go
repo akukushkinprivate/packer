@@ -28,7 +28,7 @@ func main() {
 	mux.Handle("/setPackSizes", setPackSizesHandler)
 	mux.Handle("/numberOfPacks", numberOfPacksHandler)
 	handler := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:8000", "http://localhost:8080"},
+		AllowedOrigins:   []string{"*"},
 		AllowCredentials: true,
 	}).Handler(mux)
 
