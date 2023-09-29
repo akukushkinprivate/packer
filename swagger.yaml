@@ -1,0 +1,82 @@
+openapi: 3.0.0
+info:
+  title: Packer API
+  description: API can calculate the number of packs we need to ship to the customer.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080
+paths:
+  /getPackSizes:
+    get:
+      summary: Returns available pack sizes.
+      responses:
+        '200':
+          description: A JSON array of pack sizes
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  packSizes:
+                    type: array
+                    items:
+                      type: integer
+        '405':
+          description: Method not allowed
+        '500':
+          description: Internal server error
+  /setPackSizes:
+    post:
+      summary: Sets pack sizes.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                packSizes:
+                  type: array
+                  items:
+                    type: integer
+                  minItems: 1
+      responses:
+        '200':
+          description: Pack sizes successfully set
+        '400':
+          description: Invalid request body
+        '405':
+          description: Method not allowed
+        '500':
+          description: Internal server error
+  /numberOfPacks:
+    post:
+      summary: Calculates the number of packs we need to ship to the customer.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                items:
+                  type: integer
+                  minimum: 1
+      responses:
+        '200':
+          description: A JSON array of number of packs
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  numberOfPacks:
+                    type: array
+                    items:
+                      type: string
+        '400':
+          description: Invalid request body
+        '405':
+          description: Method not allowed
+        '500':
+          description: Internal server error
